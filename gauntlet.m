@@ -1,26 +1,29 @@
 addpath("C:\Users\kmoon\Downloads\Neato\")
 
-% Getting the LIDAR map
-neatov2.connect('192.168.17.207');
-neatov2.testConnection();
-sensors = neatov2.receive();
+% % Getting the LIDAR map
+% neatov2.connect('192.168.17.207');
+% neatov2.testConnection();
+% sensors = neatov2.receive();
+% 
+% angle_rotated = 0;
+% position_moved = [-.5 .5];
+% r = sensors.ranges;
+% theta = sensors.thetasInRadians;
+% d = 0.09;
+% 
+% x = (r .* cos(theta) - d);
+% y = (r.* sin(theta));
+% one = ones(size(x));
+% 
+% lidar_pos = [x; y; one];
+% mainframe_pos = translatePos(position_moved(1), position_moved(2)) * rotateAngle(angle_rotated) * lidar_pos;
+% scatter(mainframe_pos(1, :), mainframe_pos(2, :), 10,"blue")
 
-angle_rotated = 0;
-position_moved = [-.5 .5];
-r = sensors.ranges;
-theta = sensors.thetasInRadians;
-d = 0.09;
-
-x = (r .* cos(theta) - d);
-y = (r.* sin(theta));
-one = ones(size(x));
-
-lidar_pos = [x; y; one];
-mainframe_pos = translatePos(position_moved(1), position_moved(2)) * rotateAngle(angle_rotated) * lidar_pos;
-scatter(mainframe_pos(1, :), mainframe_pos(2, :), 10,"blue")
-
-% load("lidar_data.mat")
-% scatter(x, y)
+load("lidar_data.mat")
+scatter(mainframe1(1, :), mainframe1(2, :)); 
+hold on
+scatter(mainframe2(1, :), mainframe2(2, :));
+% 
 % [x_grid, y_grid]=meshgrid(-2:.1:2, -2:.1:2);
 % f = 0; % Quiver plot equation
 % for i = 1:size(x,2)
@@ -29,14 +32,14 @@ scatter(mainframe_pos(1, :), mainframe_pos(2, :), 10,"blue")
 %     % Add all walls to the quiver plot equation so it represents the map.
 %     f = f - log(sqrt((x_grid-current_x).^2 + (y_grid-current_y).^2));
 % end
-% 
-% % Add the ball to the equation.
-% f = f + log(sqrt((x_grid + 1.1).^2 + (y_grid + 0).^2));
-% 
-% [fx_grid, fy_grid] = gradient(f);
-% % Make all vectors the same length
-% fx_grid = -.06 .* fx_grid ./ sqrt(fx_grid.^2 + fy_grid.^2);
-% fy_grid = -.06 .* fy_grid ./ sqrt(fx_grid.^2 + fy_grid.^2);
+
+% Add the ball to the equation.
+f = f + log(sqrt((x_grid + 1.1).^2 + (y_grid + 0).^2));
+
+[fx_grid, fy_grid] = gradient(f);
+% Make all vectors the same length
+fx_grid = -.06 .* fx_grid ./ sqrt(fx_grid.^2 + fy_grid.^2);
+fy_grid = -.06 .* fy_grid ./ sqrt(fx_grid.^2 + fy_grid.^2);
 % quiver(x_grid, y_grid, fx_grid, fy_grid);
 % 
 % surf(x_grid, y_grid, f)
