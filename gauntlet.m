@@ -1,12 +1,12 @@
 addpath("C:\Users\kmoon\Downloads\Neato\")
 
 % Getting the LIDAR map
-neatov2.connect('192.168.16.126');
+neatov2.connect('192.168.17.207');
 neatov2.testConnection();
 sensors = neatov2.receive();
 
 angle_rotated = 0;
-position_moved = [1 1.5];
+position_moved = [-.5 .5];
 r = sensors.ranges;
 theta = sensors.thetasInRadians;
 d = 0.09;
@@ -17,7 +17,7 @@ one = ones(size(x));
 
 lidar_pos = [x; y; one];
 mainframe_pos = translatePos(position_moved(1), position_moved(2)) * rotateAngle(angle_rotated) * lidar_pos;
-scatter(x, y, 10,"yellow")
+scatter(mainframe_pos(1, :), mainframe_pos(2, :), 10,"blue")
 
 % load("lidar_data.mat")
 % scatter(x, y)
